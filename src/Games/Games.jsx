@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Particles from '../Particles/Particles';
+import deceptionistLogo from './Deceptionist_Logo 1.png'; // Import the logo
 import './Games.css';
 
 const Games = () => {
@@ -26,14 +27,15 @@ const Games = () => {
       title: "Deceptionist",
       subtitle: "A Game of Lies and Strategy",
       description: "Uncover the truth while hiding your own secrets in this social deduction masterpiece. Outwit your opponents through cunning strategies and clever bluffs.",
-      players: "2-6",
+      players: "2-4",
       duration: "45-90min",
       age: "14+",
       rating: "4.8",
-      tags: ["Social Deduction", "Strategy", "Bluffing", "Party Game"],
+      tags: [],
       featured: true,
       color: "#7877c6",
-      gradient: "linear-gradient(135deg, #7877c6, #ff77c6)"
+      gradient: "linear-gradient(135deg, #7877c6, #ff77c6)",
+      logo: deceptionistLogo // Add logo reference
     }
   ];
 
@@ -81,7 +83,7 @@ const Games = () => {
           </p>
         </div>
         <div className="scroll-indicator">
-          <div className="scroll-arrow"></div>
+         
         </div>
       </header>
 
@@ -122,8 +124,18 @@ const Games = () => {
                       ★ {game.rating}
                     </span>
                   </div>
+                  
+                  {/* Logo Container */}
+                  <div className="card-logo-container">
+                    <img 
+                      src={game.logo} 
+                      alt={`${game.title} Logo`}
+                      className="game-logo"
+                    />
+                  </div>
+                  
                   <div className="card-corner">
-                    <div className="corner-accent"></div>
+                    
                   </div>
                 </div>
 
@@ -186,44 +198,6 @@ const Games = () => {
             ))}
           </div>
 
-          {/* Enhanced Coming Soon Section */}
-          <div className="coming-soon">
-            <div className="coming-header">
-              <h3 className="coming-title">Future Releases</h3>
-              <p className="coming-subtitle">More strategic experiences in development</p>
-            </div>
-            <div className="coming-grid">
-              {[
-                { 
-                  name: "Shadow Realms", 
-                  type: "Fantasy Strategy",
-                  icon: "⚔️"
-                },
-                { 
-                  name: "Neon Nexus", 
-                  type: "Cyberpunk Bluffing",
-                  icon: "🔮"
-                },
-                { 
-                  name: "Royal Intrigue", 
-                  type: "Political Deception",
-                  icon: "👑"
-                }
-              ].map((game, idx) => (
-                <div key={idx} className="coming-card">
-                  <div className="coming-content">
-                    <div className="coming-icon">{game.icon}</div>
-                    <div className="coming-info">
-                      <h4>{game.name}</h4>
-                      <p>{game.type}</p>
-                    </div>
-                    <span className="coming-badge">Coming Soon</span>
-                  </div>
-                  <div className="coming-glow"></div>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
     </div>

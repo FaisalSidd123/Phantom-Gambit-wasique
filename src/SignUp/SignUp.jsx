@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash, FaArrowRight, FaGoogle } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash, FaGoogle, FaDiscord, FaTwitch, FaTimes } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { useAuth } from '../Context/authContext';
 import { doCreateUserWithEmailAndPassword, doSignInWithGoogle } from '../Firebase/auth';
@@ -87,203 +87,190 @@ const SignUp = () => {
     button.appendChild(circle);
   };
 
+  const handleGoHome = () => {
+    navigate('/');
+  };
+
   return (
-    <div className="signup-page-overlay">
-      <motion.div 
-        className="signup-page-backdrop"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
-      />
+    <div className="signup-page">
+
+
+      {/* Background elements */}
+      <div className="gradient-bg"></div>
+      <div className="particles">
+        {[...Array(30)].map((_, i) => (
+          <div key={i} className="particle" style={{
+            '--size': `${Math.random() * 4 + 2}px`,
+            '--delay': `${Math.random() * 2}s`,
+            '--duration': `${Math.random() * 10 + 5}s`,
+            '--x': `${Math.random() * 100}%`,
+            '--y': `${Math.random() * 100}%`,
+            '--move-x': `${Math.random() * 100 - 50}px`,
+            '--move-y': `${Math.random() * 100 - 50}px`
+          }}></div>
+        ))}
+      </div>
       
-      <motion.div 
-        ref={modalRef}
-        className="signup-modal-container"
-        initial={{ scale: 0.8, opacity: 0, y: 50 }}
-        animate={{ scale: 1, opacity: 1, y: 0 }}
-        exit={{ scale: 0.8, opacity: 0, y: 50 }}
-        transition={{ 
-          type: 'spring',
-          damping: 20,
-          stiffness: 300
-        }}
-      >
+      {/* Main Content Area */}
+      <main className="signup-content">
         <motion.div 
-          className="signup-modal-header"
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2 }}
+          ref={modalRef}
+          className="signup-container"
+          initial={{ scale: 0.8, opacity: 0, y: 50 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
+          exit={{ scale: 0.8, opacity: 0, y: 50 }}
+          transition={{ 
+            type: 'spring',
+            damping: 20,
+            stiffness: 300
+          }}
         >
-          <h2 className="signup-modal-title">JOIN THE GAMBIT</h2>
-          <p className="signup-modal-subtitle">Create your account to access exclusive features</p>
-        </motion.div>
+          {/* Close button */}
+          <button className="close-btn" onClick={handleGoHome}>
+            <FaTimes />
+          </button>
 
-        {error && (
-          <motion.div 
-            className="signup-error-message"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            {error}
-          </motion.div>
-        )}
+          {/* Header */}
+          <div className="signup-header">
+            <h2>CREATE ACCOUNT</h2>
+            <div className="signup-subtitle">Join the Phantom Gambit community</div>
+          </div>
 
-        <form onSubmit={handleSubmit} className="signup-form-container">
-          <motion.div 
-            className="signup-input-group"
-            initial={{ x: -20, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
-          >
-            <div className="signup-input-wrapper">
-              <FaUser className="signup-input-icon" />
-              <input
-                type="text"
-                name="username"
-                placeholder="Username"
-                value={formData.username}
-                onChange={handleChange}
-                className="signup-form-input"
-                required
-              />
-              <div className="signup-input-underline"></div>
+          {/* Error Message */}
+          {error && (
+            <motion.div 
+              className="auth-error-message"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {error}
+            </motion.div>
+          )}
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="signup-form">
+            {/* Username */}
+            <div className="input-group">
+              <div className="input-wrapper">
+                <FaUser className="input-icon" />
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
-          </motion.div>
 
-          <motion.div 
-            className="signup-input-group"
-            initial={{ x: -20, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
-          >
-            <div className="signup-input-wrapper">
-              <FaEnvelope className="signup-input-icon" />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-                className="signup-form-input"
-                required
-              />
-              <div className="signup-input-underline"></div>
+            {/* Email */}
+            <div className="input-group">
+              <div className="input-wrapper">
+                <FaEnvelope className="input-icon" />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
-          </motion.div>
 
-          <motion.div 
-            className="signup-input-group"
-            initial={{ x: -20, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            <div className="signup-input-wrapper">
-              <FaLock className="signup-input-icon" />
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleChange}
-                className="signup-form-input"
-                required
-                minLength="6"
-              />
-              <button 
-                type="button" 
-                className="signup-password-toggle"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </button>
-              <div className="signup-input-underline"></div>
+            {/* Password */}
+            <div className="input-group">
+              <div className="input-wrapper">
+                <FaLock className="input-icon" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  minLength="6"
+                />
+                <button 
+                  type="button" 
+                  className="password-toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
             </div>
-          </motion.div>
 
-          <motion.div 
-            className="signup-input-group"
-            initial={{ x: -20, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.6 }}
-          >
-            <div className="signup-input-wrapper">
-              <FaLock className="signup-input-icon" />
-              <input
-                type={showConfirmPassword ? "text" : "password"}
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                className="signup-form-input"
-                required
-                minLength="6"
-              />
-              <button 
-                type="button" 
-                className="signup-password-toggle"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              >
-                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-              </button>
-              <div className="signup-input-underline"></div>
+            {/* Confirm Password */}
+            <div className="input-group">
+              <div className="input-wrapper">
+                <FaLock className="input-icon" />
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                  minLength="6"
+                />
+                <button 
+                  type="button" 
+                  className="password-toggle"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
             </div>
-          </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-          >
+            {/* Submit Button */}
             <button 
               type="submit" 
-              className="signup-submit-button"
+              className="signup-btn"
               onClick={createRipple}
               disabled={isSubmitting}
             >
               {isSubmitting ? (
-                <span className="signup-spinner"></span>
-              ) : (
                 <>
-                  <span>CREATE ACCOUNT</span>
-                  <FaArrowRight className="signup-arrow-icon" />
+                  <span className="signup-spinner"></span>
+                  CREATING ACCOUNT...
                 </>
+              ) : (
+                'SIGN UP'
               )}
-              <div className="signup-btn-hover-effect"></div>
             </button>
-          </motion.div>
 
-          <motion.div 
-            className="signup-social-section"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.9 }}
-          >
-            <div className="signup-divider">
-              <span>OR CONTINUE WITH</span>
+            {/* Social Login */}
+            <div className="social-login">
+              <div className="divider">
+                <span>OR CONTINUE WITH</span>
+              </div>
+              <div className="social-icons">
+                <button 
+                  type="button" 
+                  className="social-btn google"
+                  onClick={handleGoogleSignIn}
+                  disabled={isSubmitting}
+                >
+                  <FaGoogle />
+                </button>
+              
+               
+              </div>
             </div>
-            <button 
-              type="button" 
-              className="signup-social-btn signup-google-btn"
-              onClick={handleGoogleSignIn}
-              disabled={isSubmitting}
-            >
-              <FaGoogle className="signup-social-icon" />
-              <span>Google</span>
-            </button>
-          </motion.div>
-        </form>
 
-        <motion.div 
-          className="signup-login-redirect"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-        >
-          Already have an account? <button className="signup-login-link" onClick={MovetoSignIn}>Sign In</button>
+            {/* Sign In Link */}
+            <div className="signin-link">
+              Already have an account? <button type="button" onClick={MovetoSignIn}>Sign in</button>
+            </div>
+          </form>
         </motion.div>
-      </motion.div>
+      </main>
+
+
     </div>
   );
 };

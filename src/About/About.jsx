@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { FaGamepad, FaUsers, FaRocket, FaDiscord, FaTwitter, FaHeart, FaAward } from 'react-icons/fa';
+import { FaGamepad, FaUsers, FaInstagram, FaFacebook, FaBoxOpen } from 'react-icons/fa';
 import './About.css';
 
 const About = () => {
-
   useEffect(() => {
     const statNumbers = document.querySelectorAll('.stat-number');
     
@@ -36,8 +35,21 @@ const About = () => {
       });
     }, { threshold: 0.5 });
     
-    observer.observe(document.querySelector('.stats-container'));
+    const statsContainer = document.querySelector('.stats-container');
+    if (statsContainer) {
+      observer.observe(statsContainer);
+    }
+    
+    return () => observer.disconnect();
   }, []);
+
+  const openInstagram = () => {
+    window.open('https://www.instagram.com/deceptionistgame/?hl=en', '_blank');
+  };
+
+  const openFacebook = () => {
+    window.open('https://www.facebook.com/share/1CjGdYKNoC/', '_blank');
+  };
 
   return (
     <div className="about-container">
@@ -69,62 +81,61 @@ const About = () => {
               strategists dedicated to crafting unforgettable gaming experiences.
             </p>
             <p>
-              While we're just starting our journey, our vision is grand. We believe 
-              that the best games are those that stay with you long after the final 
-              move - games that make you think, laugh, and connect with others in 
-              new and exciting ways.
+              Our journey begins with <strong>Deceptionist</strong>, our flagship 
+              social deduction game that's designed to bring people together through 
+              clever gameplay and immersive storytelling. Each game is more than 
+              just a board - it's an experience packaged in our signature 
+              Deceptionist boxes.
             </p>
             
             <div className="core-values">
               <h4>Our Core Values</h4>
               <div className="values-grid">
                 <div className="value-item">
-                  <span className="value-icon">💡</span>
-                  <span className="value-text">Innovative Design</span>
+                  <span className="value-icon">🎭</span>
+                  <span className="value-text">Immersive Gameplay</span>
                 </div>
                 <div className="value-item">
                   <span className="value-icon">🤝</span>
-                  <span className="value-text">Community First</span>
+                  <span className="value-text">Community Building</span>
                 </div>
                 <div className="value-item">
                   <span className="value-icon">🎯</span>
                   <span className="value-text">Strategic Depth</span>
                 </div>
                 <div className="value-item">
-                  <span className="value-icon">✨</span>
-                  <span className="value-text">Quality Craftsmanship</span>
+                  <span className="value-icon">📦</span>
+                  <span className="value-text">Premium Packaging</span>
                 </div>
               </div>
             </div>
           </div>
           
-          {/* Stats Cards - Updated for new brand */}
+          {/* Stats Cards - Square layout with 2 top, 1 bottom */}
           <div className="stats-container animate-slide-in-right">
             <h3>Our Journey Begins</h3>
-            <div className="stats-grid">
-              <div className="stat-card">
-                <div className="stat-icon"><FaGamepad /></div>
-                <div className="stat-number" data-count="1">0</div>
-                <div className="stat-label">Launch Title</div>
-                <div className="stat-subtext">Deceptionist</div>
+            <div className="stats-grid-square">
+              <div className="stats-top-row">
+                <div className="stat-card">
+                  <div className="stat-icon"><FaGamepad /></div>
+                  <div className="stat-number" data-count="1">1</div>
+                  <div className="stat-label">Launch Title</div>
+                  <div className="stat-subtext">Deceptionist</div>
+                </div>
+                <div className="stat-card">
+                  <div className="stat-icon"><FaBoxOpen /></div>
+                  <div className="stat-number" data-count="250">50</div>
+                  <div className="stat-label">Deceptionist Boxes</div>
+                  <div className="stat-subtext">Initial Production Run</div>
+                </div>
               </div>
-              <div className="stat-card">
-                <div className="stat-icon"><FaUsers /></div>
-                <div className="stat-number" data-count="500">0</div>
-                <div className="stat-label">Community Members</div>
-                <div className="stat-subtext">Growing Daily</div>
-              </div>
-              <div className="stat-card">
-                <div className="stat-icon"><FaHeart /></div>
-                <div className="stat-number" data-count="100">0</div>
-                <div className="stat-label">Playtesters</div>
-                <div className="stat-subtext">Helping Us Improve</div>
-              </div>
-              <div className="stat-card">
-                <div className="stat-icon"><FaRocket /></div>
-                <div className="stat-number" data-count="2">0</div>
-                <div className="stat-label">Games in Development</div>
-                <div className="stat-subtext">Coming Soon</div>
+              <div className="stats-bottom-row">
+                <div className="stat-card wide-card">
+                  <div className="stat-icon"><FaUsers /></div>
+                  <div className="stat-text">Join Our Growing Community</div>
+                  <div className="stat-label">Be a  Member</div>
+                  <div className="stat-subtext">Connect with us</div>
+                </div>
               </div>
             </div>
           </div>
@@ -135,27 +146,27 @@ const About = () => {
           <h3>What We're Building Right Now</h3>
           <div className="focus-grid">
             <div className="focus-card">
-              <div className="focus-icon">🎭</div>
-              <h4>Deceptionist</h4>
-              <p>Our flagship social deduction game that's currently in final development and testing phases.</p>
+              <div className="focus-icon">📦</div>
+              <h4>Deceptionist Boxes</h4>
+              <p>Our premium game packaging that contains everything needed for an unforgettable night of deception and strategy with friends.</p>
               <div className="focus-status">
-                <span className="status-badge">In Development</span>
+                <span className="status-badge">In Production</span>
               </div>
             </div>
             <div className="focus-card">
               <div className="focus-icon">🌱</div>
-              <h4>Community Building</h4>
-              <p>Growing our player community and gathering valuable feedback to make our games even better.</p>
+              <h4>Founding Community</h4>
+              <p>Building a community of board game enthusiasts who will help shape the future of Phantom Gambit through early feedback and support.</p>
               <div className="focus-status">
-                <span className="status-badge">Active</span>
+                <span className="status-badge">Growing</span>
               </div>
             </div>
             <div className="focus-card">
               <div className="focus-icon">🚀</div>
-              <h4>Future Projects</h4>
-              <p>Developing new game concepts that will expand our portfolio with unique strategic experiences.</p>
+              <h4>Game Expansion</h4>
+              <p>Developing expansion packs and additional content to enhance the Deceptionist experience and keep gameplay fresh and exciting.</p>
               <div className="focus-status">
-                <span className="status-badge">Planning Phase</span>
+                <span className="status-badge">Development Phase</span>
               </div>
             </div>
           </div>
@@ -166,17 +177,18 @@ const About = () => {
           <div className="cta-content">
             <h3>Join Our Founding Community</h3>
             <p>
-              Be part of our journey from the very beginning. Your feedback and 
-              enthusiasm will help shape the future of Phantom Gambit.
+              Be among the first to experience Deceptionist! Follow our journey, 
+              get exclusive updates, and be notified when our Deceptionist boxes 
+              become available for pre-order.
             </p>
             <div className="cta-buttons">
-              <button className="cta-primary">
-                <FaDiscord className="cta-icon" />
-                Join Discord
+              <button className="cta-primary" onClick={openInstagram}>
+                <FaInstagram className="cta-icon" />
+                Follow on Instagram
               </button>
-              <button className="cta-secondary">
-                <FaTwitter className="cta-icon" />
-                Follow Updates
+              <button className="cta-secondary" onClick={openFacebook}>
+                <FaFacebook className="cta-icon" />
+                Like on Facebook
               </button>
             </div>
           </div>
@@ -185,8 +197,8 @@ const About = () => {
         {/* Mission Statement */}
         <div className="mission-statement animate-fade-in">
           <div className="mission-quote">
-            "Great games aren't just played - they're experienced, remembered, 
-            and shared. We're here to create those moments."
+            "Great games aren't just played - they're experiences that bring people 
+            together. Each Deceptionist box is crafted to create those memorable moments."
           </div>
           <div className="mission-author">- The Phantom Gambit Team</div>
         </div>

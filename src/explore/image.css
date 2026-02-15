@@ -1,0 +1,505 @@
+/* Modern Font Imports */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;800&family=Rajdhani:wght@300;400;500;600;700&family=Exo+2:wght@300;400;500;600;700&display=swap');
+
+/* Image Container */
+.image-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
+  color: #ffffff;
+  font-family: 'Exo 2', sans-serif;
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-top: 0;
+  padding-top: 100px;
+  box-sizing: border-box;
+}
+
+.image-container.loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Background Effects */
+.image-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.bg-pattern {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.05) 0%, transparent 50%),
+    repeating-linear-gradient(45deg, 
+      transparent, 
+      transparent 20px, 
+      rgba(99, 102, 241, 0.03) 20px, 
+      rgba(99, 102, 241, 0.03) 40px);
+}
+
+.bg-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, 
+    rgba(10, 10, 26, 0.8) 0%,
+    rgba(10, 10, 26, 0.4) 50%,
+    rgba(10, 10, 26, 0.8) 100%);
+}
+
+
+
+
+
+@keyframes floatParticle {
+  0%, 100% { 
+    transform: translate(0, 0) scale(1);
+    opacity: 0.15;
+  }
+  33% { 
+    transform: translate(30px, -20px) scale(1.1);
+    opacity: 0.2;
+  }
+  66% { 
+    transform: translate(-20px, 30px) scale(0.9);
+    opacity: 0.1;
+  }
+}
+
+/* Main Content */
+.image-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 1rem;
+  min-height: calc(100vh - 50px);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Logo Center Top */
+.logo-center-top {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  padding-top: 10px;
+}
+
+.deceptionist-logo-center {
+  width: 180px;
+  height: auto;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+  transition: all 0.3s ease;
+  margin: 0 auto;
+}
+
+.deceptionist-logo-center:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.6));
+}
+
+/* Image Display */
+.image-display {
+  width: 100%;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.image-display.loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Image Frame */
+.image-frame {
+  position: relative;
+  background: rgba(30, 41, 59, 0.6);
+  border-radius: 16px;
+  padding: 2px;
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 15px 30px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  overflow: visible;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 500px;
+}
+
+.frame-border {
+  position: absolute;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(99, 102, 241, 0.3), 
+    transparent);
+  z-index: 2;
+}
+
+.frame-border-top {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  animation: borderScan 3s ease-in-out infinite;
+}
+
+.frame-border-right {
+  top: 0;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, 
+    transparent, 
+    rgba(236, 72, 153, 0.3), 
+    transparent);
+  animation: borderScanVertical 3s ease-in-out infinite 1s;
+}
+
+.frame-border-bottom {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    #f59e0b, 
+    transparent);
+  animation: borderScan 3s ease-in-out infinite 2s;
+}
+
+.frame-border-left {
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  animation: borderScanVertical 3s ease-in-out infinite 1.5s;
+}
+
+@keyframes borderScan {
+  0% { background-position: -100% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes borderScanVertical {
+  0% { background-position: 0 -100%; }
+  100% { background-position: 0 200%; }
+}
+
+.image-wrapper {
+  position: relative;
+  border-radius: 14px;
+  overflow: visible;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+  min-height: 450px;
+}
+
+.board-image {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
+  transition: transform 0.5s ease;
+  filter: brightness(0.95) contrast(1.05);
+  display: block;
+  border-radius: 12px;
+}
+
+.image-wrapper:hover .board-image {
+  transform: scale(1.01);
+}
+
+.image-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent);
+  transition: left 0.6s ease;
+}
+
+.image-wrapper:hover .image-shine {
+  left: 100%;
+}
+
+/* Corner Accents */
+.corner-accent {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  z-index: 3;
+}
+
+.corner-tl {
+  top: 10px;
+  left: 10px;
+}
+
+.corner-tr {
+  top: 10px;
+  right: 10px;
+}
+
+.corner-br {
+  bottom: 10px;
+  right: 10px;
+}
+
+.corner-bl {
+  bottom: 10px;
+  left: 10px;
+}
+
+.corner-line {
+  position: absolute;
+  background: linear-gradient(45deg, #6366f1, #ec4899);
+}
+
+.corner-tl .corner-line {
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 2px;
+}
+
+.corner-tr .corner-line {
+  top: 0;
+  right: 0;
+  width: 2px;
+  height: 15px;
+}
+
+.corner-br .corner-line {
+  bottom: 0;
+  right: 0;
+  width: 15px;
+  height: 2px;
+}
+
+.corner-bl .corner-line {
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  height: 15px;
+}
+
+.corner-dot {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: #f59e0b;
+  border-radius: 50%;
+  animation: pulseDot 2s ease-in-out infinite;
+}
+
+.corner-tl .corner-dot {
+  top: 4px;
+  left: 4px;
+}
+
+.corner-tr .corner-dot {
+  top: 4px;
+  right: 4px;
+}
+
+.corner-br .corner-dot {
+  bottom: 4px;
+  right: 4px;
+}
+
+.corner-bl .corner-dot {
+  bottom: 4px;
+  left: 4px;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Image Tagline */
+.image-tagline {
+  text-align: center;
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  background: rgba(30, 41, 59, 0.8);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  max-width: 800px;
+  width: 100%;
+  margin-bottom: 4rem;
+}
+
+.tagline-text {
+  font-size: 1.6rem;
+  color: #f59e0b;
+  margin: 0;
+  font-weight: 600;
+  font-family: 'Rajdhani', sans-serif;
+  font-style: italic;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Remove old styles that aren't needed */
+.logo-overlay,
+.image-caption,
+.game-stats,
+.action-button,
+.navigation-hint {
+  display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .deceptionist-logo-center {
+    width: 160px;
+  }
+  
+  .tagline-text {
+    font-size: 1.4rem;
+  }
+  
+  .image-frame {
+    max-width: 1000px;
+  }
+}
+
+@media (max-width: 768px) {
+  .image-content {
+    padding: 15px 0.5rem;
+  }
+  
+  .logo-center-top {
+    margin-bottom: 1rem;
+    padding-top: 5px;
+  }
+  
+  .deceptionist-logo-center {
+    width: 140px;
+  }
+  
+  .image-frame {
+    border-radius: 12px;
+    min-height: 400px;
+  }
+  
+  .image-wrapper {
+    border-radius: 10px;
+    min-height: 380px;
+    padding: 8px;
+  }
+  
+  .board-image {
+    max-height: 60vh;
+  }
+  
+  .tagline-text {
+    font-size: 1.2rem;
+    padding: 0 1rem;
+  }
+  
+  .image-tagline {
+    padding: 0.8rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .corner-accent {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .deceptionist-logo-center {
+    width: 120px;
+  }
+  
+  .image-content {
+    padding: 10px 0.25rem;
+  }
+  
+  .tagline-text {
+    font-size: 1.1rem;
+  }
+  
+  .image-tagline {
+    padding: 0.6rem 0.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  .corner-accent {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .corner-tl, .corner-tr, .corner-br, .corner-bl {
+    top: 8px;
+    right: 8px;
+    bottom: 8px;
+    left: 8px;
+  }
+  
+  .image-frame {
+    min-height: 350px;
+  }
+  
+  .image-wrapper {
+    min-height: 330px;
+  }
+}
+
+/* Ensure proper scrolling */
+.image-container {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.image-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Fix for image display */
+@media (min-height: 800px) {
+  .board-image {
+    max-height: 65vh;
+  }
+}
+
+@media (min-height: 1000px) {
+  .board-image {
+    max-height: 70vh;
+  }
+}

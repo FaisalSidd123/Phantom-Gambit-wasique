@@ -1,28 +1,18 @@
-import React, { useEffect,useState,useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './Home.css';
-import { FaChevronRight, FaGamepad, FaTrophy, FaInfoCircle, FaUser, FaBars, FaTimes } from 'react-icons/fa';import { useNavigate } from 'react-router-dom';
+import { FaChevronRight } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../Context/authContext";
 import { doSignOut } from "../Firebase/auth";
-import About from '../About/About';
 import Ballpit from '../Background/Background';
-import Navbar from '../Navbar/Nav';
+// REMOVE Navbar import from here
 
-
-
-
-   function Home() {
+function Home() {
   const { currentUser, userRole } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
-   const ballpitRef = useRef();
-   const [isBallpitReady, setIsBallpitReady] = useState(false);
- 
-
-
-  const handleNavClick = (section) => {
-    navigate(`/${section.toLowerCase()}`);
-    setIsMobileMenuOpen(false);
-  };
+  const ballpitRef = useRef();
+  const [isBallpitReady, setIsBallpitReady] = useState(false);
 
   const handleExploreClick = () => {
     navigate('/games');
@@ -51,22 +41,21 @@ import Navbar from '../Navbar/Nav';
 
   return (
     <div className="home-container">
-        
-        <Ballpit 
-          ref={ballpitRef}
-          shape="icosahedron"
-          colors={['#14053dff', '#8b0959ff', '#40037dff']}
-          count={120}
-          followCursor={false}
-          className="ballpit-background"
-          minSize={0.2}
-          maxSize={0.5}
-          size0={0.5}
-          onLoad={() => {
-            setIsBallpitReady(true);
-            document.body.classList.add('ballpit-ready');
-          }}
-        />
+      <Ballpit 
+        ref={ballpitRef}
+        shape="icosahedron"
+        colors={['#14053dff', '#8b0959ff', '#40037dff']}
+        count={120}
+        followCursor={false}
+        className="ballpit-background"
+        minSize={0.2}
+        maxSize={0.5}
+        size0={0.5}
+        onLoad={() => {
+          setIsBallpitReady(true);
+          document.body.classList.add('ballpit-ready');
+        }}
+      />
 
       {/* Enhanced Gradient Background */}
       <div className="gradient-bg"></div>
@@ -118,16 +107,8 @@ import Navbar from '../Navbar/Nav';
           </button>
         </div>
 
-        {/* Enhanced Scroll Indicator */}
-        <div className="scroll-indicator">
-          <div className="scroll-line"></div>
-          <span>SCROLL</span>
-        </div>
+      
       </div>
-
-        <Navbar />
-    
-           
     </div>
   );
 }

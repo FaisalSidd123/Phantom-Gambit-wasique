@@ -1,13 +1,45 @@
-/* Layout.css */
+/* Layout.css - Fixed scrolling version */
 .main-layout {
   position: relative;
+  width: 100%;
+  min-height: 100vh;
 }
 
-.home-section {
-  position: relative;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
+/* Apply smooth scrolling to html */
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+/* Reset body styles */
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-y: auto !important; /* Force vertical scrolling */
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar visually but keep functionality */
+body::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+/* IE and Edge */
+body {
+  -ms-overflow-style: none;
+}
+
+/* Firefox */
+body {
+  scrollbar-width: none;
+}
+
+/* Ensure all direct children of body can grow */
+body > * {
+  min-height: 100vh;
 }
 
 .home-section .ballpit-background {
@@ -24,11 +56,20 @@
   z-index: 2;
 }
 
-/* Ensure other sections have proper styling */
-.about-section,
-.contact-section,
-.footer-section {
+/* Make sure home section has enough height */
+.home-section {
+  min-height: 100vh;
   position: relative;
-  z-index: 3;
-  background: #0f0f1a; /* Your main background color */
 }
+
+/* Reset for common issues */
+* {
+  box-sizing: border-box;
+}
+
+/* Debug helper - remove in production */
+.debug-scroll {
+  min-height: 200vh;
+  background: linear-gradient(to bottom, red, blue);
+}
+

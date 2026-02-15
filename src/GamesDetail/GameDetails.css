@@ -1,13 +1,57 @@
 /* Modern Font Imports */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;800&family=Rajdhani:wght@300;400;500;600;700&family=Exo+2:wght@300;400;500;600;700&display=swap');
 
-/* Game Details Page */
+/* Reset scrollbar and fix scrolling issues */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  position: relative;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+
+/* Game Details Page - FIXED SCROLLING */
 .gd-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
   color: #ffffff;
   font-family: 'Exo 2', sans-serif;
   position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  /* Remove fixed height and use min-height instead */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.gd-page::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Main content wrapper - FIXED */
+.gd-content-wrapper {
+  flex: 1;
+  position: relative;
+  z-index: 1;
 }
 
 /* Back Button */
@@ -21,7 +65,7 @@
   padding: 0.8rem 1.5rem;
   border-radius: 12px;
   cursor: pointer;
-  z-index: 100;
+  z-index: 1000; /* Increased z-index */
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
   display: flex;
@@ -119,6 +163,7 @@
   font-family: 'Orbitron', monospace;
   position: relative;
   display: inline-block;
+  margin-top: 40px;
 }
 
 .gd-title-text {
@@ -128,6 +173,7 @@
   background-clip: text;
   position: relative;
   z-index: 2;
+  
 }
 
 .gd-title-shadow {
@@ -392,6 +438,48 @@
   font-size: 1.1rem;
   text-align: center;
   margin-bottom: 3rem;
+}
+
+/* Rules Note */
+.gd-rules-note {
+  background: rgba(99, 102, 241, 0.08);
+  border-left: 4px solid #8b5cf6;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  margin-top: 2rem;
+}
+
+.gd-rules-note h3 {
+  color: #8b5cf6;
+  font-family: 'Rajdhani', sans-serif;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.gd-rules-note ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.gd-rules-note li {
+  color: #cbd5e1;
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  line-height: 1.5;
+}
+
+.gd-rules-note li:before {
+  content: "•";
+  color: #8b5cf6;
+  font-size: 1.5rem;
+  position: absolute;
+  left: 0;
+  top: 0.3rem;
 }
 
 /* Overview Highlights */
@@ -775,6 +863,68 @@
   transform: scale(1.1);
 }
 
+/* Footer Styling - ADDED */
+.gd-footer {
+  position: relative;
+  z-index: 2;
+  background: rgba(10, 10, 26, 0.9);
+  padding: 3rem 2rem;
+  border-top: 1px solid rgba(99, 102, 241, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.gd-footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
+}
+
+.gd-footer-section h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #8b5cf6;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.gd-footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.gd-footer-links li {
+  margin-bottom: 0.8rem;
+}
+
+.gd-footer-links a {
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.gd-footer-links a:hover {
+  color: #8b5cf6;
+}
+
+.gd-contact-info {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.gd-copyright {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .gd-game-title {
@@ -840,6 +990,11 @@
     width: 40px;
     height: 2px;
   }
+  
+  .gd-footer-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
 }
 
 @media (max-width: 480px) {
@@ -865,4 +1020,33 @@
   .gd-cta-content h2 {
     font-size: 2.2rem;
   }
+  
+  .gd-footer {
+    padding: 2rem 1rem;
+  }
+}
+
+/* Additional fix for scrollbar */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: transparent;
+  border: none;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: transparent;
 }

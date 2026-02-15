@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { FaGamepad, FaTrophy, FaInfoCircle, FaUser, FaBars, FaTimes } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { FaGamepad, FaEnvelope, FaInfoCircle, FaUser, FaBars, FaTimes, FaHome } from 'react-icons/fa';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from "../Context/authContext";
 import { doSignOut } from "../Firebase/auth";
 import './Nav.css';
@@ -9,11 +9,65 @@ const Navbar = () => {
   const { currentUser } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    } else {
+      // If element not found, scroll to top
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   const handleNavClick = (section) => {
-    navigate(`/${section.toLowerCase()}`);
+    // If clicking "home" from anywhere
+    if (section === 'home') {
+      if (location.pathname === '/') {
+        // Already on home page, scroll to top
+        scrollToSection('home');
+      } else {
+        // On another page, navigate to home
+        navigate('/');
+        // Scroll to top after navigation
+        setTimeout(() => {
+          scrollToSection('home');
+        }, 100);
+      }
+      setIsMobileMenuOpen(false);
+      return;
+    }
+    
+    if (section === 'games') {
+      navigate(`/${section.toLowerCase()}`);
+      setIsMobileMenuOpen(false);
+      return;
+    }
+    
+    // For 'about' and 'contact', scroll to sections on home page
+    if (location.pathname === '/') {
+      // Already on home page, scroll to section
+      scrollToSection(section);
+    } else {
+      // On another page, navigate to home first
+      navigate('/');
+      // Then scroll to section after a short delay
+      setTimeout(() => {
+        scrollToSection(section);
+      }, 100);
+    }
     setIsMobileMenuOpen(false);
   };
+
+  // ... rest of the component remains the same
+
 
   const handleSignIn = () => {
     navigate('/signin');
@@ -56,22 +110,32 @@ const Navbar = () => {
 
       {/* Navigation Items */}
       <div className={`navbar-items ${isMobileMenuOpen ? 'navbar-mobile-open' : ''}`}>
+        {/* Home Tab */}
+        <div className="navbar-item">
+          <button onClick={() => handleNavClick('home')}>
+            <FaHome className="navbar-icon" />
+            <span>HOME</span>
+          </button>
+        </div>
+        
         <div className="navbar-item">
           <button onClick={() => handleNavClick('games')}>
             <FaGamepad className="navbar-icon" />
             <span>GAMES</span>
           </button>
         </div>
-        <div className="navbar-item">
-          <button onClick={() => handleNavClick('contact')}>
-            <FaTrophy className="navbar-icon" />
-            <span>TOURNAMENTS</span>
-          </button>
-        </div>
+        
         <div className="navbar-item">
           <button onClick={() => handleNavClick('about')}>
             <FaInfoCircle className="navbar-icon" />
             <span>ABOUT</span>
+          </button>
+        </div>
+        
+        <div className="navbar-item">
+          <button onClick={() => handleNavClick('contact')}>
+            <FaEnvelope className="navbar-icon" />
+            <span>CONTACT</span>
           </button>
         </div>
       </div>

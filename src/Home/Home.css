@@ -59,17 +59,7 @@ body {
   pointer-events: none;
 }
 
-.particle {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 50%;
-  width: var(--size);
-  height: var(--size);
-  left: var(--x);
-  top: var(--y);
-  animation: float var(--duration) var(--delay) infinite ease-in-out;
-  filter: blur(0.5px);
-}
+
 
 /* Glowing Orbs */
 .orb {
@@ -330,30 +320,9 @@ body {
     inset 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
-/* Scroll Indicator */
-.scroll-indicator {
-  position: absolute;
-  bottom: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.8rem;
-  letter-spacing: 0.2rem;
-  text-transform: uppercase;
-  z-index: 5;
-  opacity: 0;
-  animation: fadeInUp 0.8s ease-out forwards;
-  animation-delay: 1s;
-}
 
-.scroll-line {
-  width: 1px;
-  height: 50px;
-  background: linear-gradient(to bottom, var(--light), transparent);
-  animation: scrollLine 2s infinite;
-}
+
+
 
 /* Modern Navigation */
 .main-nav {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaUser, FaLock, FaGoogle, FaDiscord, FaTwitch, FaTimes } from 'react-icons/fa';
+import { FaUser, FaLock, FaGoogle, FaDiscord, FaTwitch } from 'react-icons/fa';
 import './SignIn.css';
 import { useAuth } from '../Context/authContext';
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../Firebase/auth';
@@ -36,7 +36,7 @@ const SignIn = () => {
       
       setCurrentUser(user);
       setUserRole(role);
-      navigate('/'); // Navigate directly on success
+      navigate('/');
     } catch (error) {
       setError(error.message);
       setLoading(false);
@@ -53,7 +53,6 @@ const SignIn = () => {
     
     try {
       await doSignInWithGoogle();
-      // Auth state change will be handled by AuthProvider
       navigate('/');
     } catch (error) {
       setError(error.message);
@@ -61,12 +60,14 @@ const SignIn = () => {
     }
   };
 
-  const handleClose = () => {
-    navigate(-1); // Go back in history
+  const handleGoHome = () => {
+    navigate('/');
   };
 
   return (
-    <div className="signin-overlay">
+    <div className="signin-page">
+  
+
       {/* Background elements */}
       <div className="gradient-bg"></div>
       <div className="particles">
@@ -83,87 +84,86 @@ const SignIn = () => {
         ))}
       </div>
       
-      <div className="signin-container">
-       
-       
-        <div className="signin-header">
-          <h2>WELCOME BACK</h2>
-          <div className="signin-subtitle">Sign in to your account</div>
+      {/* Main Content Area */}
+      <main className="signin-content">
+        <div className="signin-container">
+          <div className="signin-header">
+            <h2>WELCOME BACK</h2>
+            <div className="signin-subtitle">Sign in to your account</div>
+          </div>
+
+          {error && (
+            <div className="auth-error-message">
+              {error}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="signin-form">
+            <div className="input-group">
+              <div className="input-wrapper">
+                <FaUser className="input-icon" />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="input-group">
+              <div className="input-wrapper">
+                <FaLock className="input-icon" />
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="forgot-password">
+                <a href="#forgot">Forgot password?</a>
+              </div>
+            </div>
+
+            <button 
+              type="submit" 
+              className="signin-btn"
+              disabled={loading}
+            >
+              {loading ? 'SIGNING IN...' : 'SIGN IN'}
+            </button>
+
+            <div className="social-login">
+              <div className="divider">
+                <span>OR CONTINUE WITH</span>
+              </div>
+              <div className="social-icons">
+                <button 
+                  type="button" 
+                  className="social-btn google"
+                  onClick={handleGoogleSignIn}
+                  disabled={loading}
+                >
+                  <FaGoogle />
+                </button>
+               
+                
+              </div>
+            </div>
+
+            <div className="signup-link">
+              Don't have an account? <button type="button" onClick={MovetoSignUp}>Sign up</button>
+            </div>
+          </form>
         </div>
+      </main>
 
-        {error && (
-          <div className="auth-error-message">
-            {error}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="signin-form">
-          <div className="input-group">
-            <div className="input-wrapper">
-              <FaUser className="input-icon" />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-
-          <div className="input-group">
-            <div className="input-wrapper">
-              <FaLock className="input-icon" />
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="forgot-password">
-              <a href="#forgot">Forgot password?</a>
-            </div>
-          </div>
-
-          <button 
-            type="submit" 
-            className="signin-btn"
-            disabled={loading}
-          >
-            {loading ? 'SIGNING IN...' : 'SIGN IN'}
-          </button>
-
-          <div className="social-login">
-            <div className="divider">
-              <span>OR CONTINUE WITH</span>
-            </div>
-            <div className="social-icons">
-              <button 
-                type="button" 
-                className="social-btn google"
-                onClick={handleGoogleSignIn}
-                disabled={loading}
-              >
-                <FaGoogle />
-              </button>
-              <button type="button" className="social-btn discord">
-                <FaDiscord />
-              </button>
-              <button type="button" className="social-btn twitch">
-                <FaTwitch />
-              </button>
-            </div>
-          </div>
-
-          <div className="signup-link">
-            Don't have an account? <button type="button" onClick={MovetoSignUp}>Sign up</button>
-          </div>
-        </form>
-      </div>
+   
     </div>
   );
 };

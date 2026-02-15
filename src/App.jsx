@@ -1,36 +1,37 @@
 import { useState, useRef } from 'react';
-import Ballpit from './Background/Background';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './Context/authContext';
+import Navbar from './Navbar/Nav';
+import Footer from './footer/footer'; // Import Footer
 
 import './App.css';
 import SignIn from './SignIn/SignIn';
 import SignUp from './SignUp/SignUp';
-import About from './About/About';
 import Layout from './Layout/Layout';
 import GameDetails from './GamesDetail/GamesDetail';
 import Games from './Games/Games';
-import Contact from './Contact/Contact';
 
 function AppContent() {
+  const location = useLocation();
   
- 
-  // Show Ballpit ONLY on home page ('/')
-  const showBallpit = location.pathname === '/';
-
   return (
-    <div className="app-container">
-   
+    <div className="main-container">
+      {/* Navbar is now visible on ALL pages */}
+      <Navbar />
       
-      <Routes>  
-        <Route path="/" element={<Layout />} /> 
-        <Route path="/games" element={<Games />} />
-        <Route path="/games/:gameId" element={<GameDetails />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
+      {/* Main content area with proper spacing */}
+      <main className="main-content">
+        <Routes>  
+          <Route path="/" element={<Layout />} /> 
+          <Route path="/games" element={<Games />} />
+          <Route path="/games/:gameId" element={<GameDetails />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+        </Routes>
+      </main>
+      
+      {/* Footer is now visible on ALL pages */}
+      <Footer />
     </div>
   );
 }

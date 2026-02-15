@@ -152,19 +152,31 @@
 
 .scroll-indicator {
   position: absolute;
-  bottom: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  color: #94a3b8;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
 }
 
 .scroll-arrow {
-  width: 2px;
-  height: 30px;
-  background: linear-gradient(to bottom, #6366f1, transparent);
-  animation: scroll 2s infinite;
+  width: 24px;
+  height: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  position: relative;
+}
+
+.scroll-arrow::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 2px;
+  animation: scroll 1.5s ease-in-out infinite;
 }
 
 @keyframes scroll {
@@ -315,6 +327,7 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 2rem;
+  position: relative;
 }
 
 .game-badges {
@@ -350,17 +363,50 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.card-corner {
-  position: relative;
+/* Logo Container */
+.card-logo-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0 20px 0 20px;
+  border-left: 2px solid rgba(99, 102, 241, 0.3);
+  border-bottom: 2px solid rgba(99, 102, 241, 0.3);
+  padding: 8px;
+  transition: all 0.3s ease;
+  z-index: 3;
 }
 
-.corner-accent {
-  width: 32px;
-  height: 32px;
-  border-top: 2px solid #6366f1;
-  border-right: 2px solid #ec4899;
-  border-radius: 0 12px 0 0;
+.game-card:hover .card-logo-container {
+  background: rgba(255, 255, 255, 0.08);
+  border-left-color: rgba(99, 102, 241, 0.5);
+  border-bottom-color: rgba(99, 102, 241, 0.5);
+  transform: translate(4px, -4px);
 }
+
+.game-logo {
+  width: 250%;
+  height: 250%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  transition: all 0.3s ease;
+}
+
+.game-card:hover .game-logo {
+  filter: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.4));
+  transform: scale(1.50);
+}
+
+.card-corner {
+  position: relative;
+  margin-top: 70px; /* Make space for the logo */
+}
+
 
 /* Card Content */
 .card-content {
@@ -530,127 +576,6 @@
   left: 100%;
 }
 
-/* Coming Soon Section */
-.coming-soon {
-  text-align: center;
-}
-
-.coming-header {
-  margin-bottom: 3rem;
-}
-
-.coming-title {
-  font-size: 2.2rem;
-  margin-bottom: 1rem;
-  font-family: 'Orbitron', monospace;
-  color: #ffffff;
-  font-weight: 700;
-}
-
-.coming-subtitle {
-  color: #cbd5e1;
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 400;
-}
-
-.coming-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.coming-card {
-  background: rgba(30, 41, 59, 0.6);
-  border: 1px solid rgba(99, 102, 241, 0.2);
-  border-radius: 16px;
-  padding: 2.5rem 2rem;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.coming-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.05), rgba(99, 102, 241, 0.05));
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.coming-card:hover::before {
-  opacity: 1;
-}
-
-.coming-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(99, 102, 241, 0.4);
-}
-
-.coming-content {
-  position: relative;
-  z-index: 2;
-}
-
-.coming-icon {
-  font-size: 3rem;
-  margin-bottom: 1.5rem;
-  opacity: 0.9;
-  transition: transform 0.3s ease;
-}
-
-.coming-card:hover .coming-icon {
-  transform: scale(1.1);
-}
-
-.coming-info h4 {
-  margin: 0 0 0.5rem;
-  color: #ffffff;
-  font-size: 1.3rem;
-  font-family: 'Rajdhani', sans-serif;
-  font-weight: 600;
-}
-
-.coming-info p {
-  margin: 0 0 1.5rem;
-  color: #94a3b8;
-  font-size: 0.95rem;
-  font-weight: 400;
-}
-
-.coming-badge {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  color: #ffffff;
-  padding: 0.5rem 1.2rem;
-  border-radius: 16px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  font-family: 'Rajdhani', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.coming-glow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at center, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.coming-card:hover .coming-glow {
-  opacity: 0.3;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .brand-title {
@@ -666,10 +591,6 @@
     grid-template-columns: 1fr;
   }
   
-  .coming-grid {
-    grid-template-columns: 1fr;
-  }
-  
   .game-card {
     padding: 2rem;
   }
@@ -680,6 +601,11 @@
   
   .container {
     padding: 0 1rem;
+  }
+  
+  .card-logo-container {
+    width: 60px;
+    height: 60px;
   }
 }
 
@@ -703,5 +629,10 @@
   .brand-description {
     padding: 1.5rem;
     font-size: 1.1rem;
+  }
+  
+  .card-logo-container {
+    width: 50px;
+    height: 50px;
   }
 }
